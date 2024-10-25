@@ -1,0 +1,51 @@
+{
+  "name": "@pyramation/git-count",
+  "version": "0.0.1",
+  "description": "git count",
+  "author": "Dan Lynch <pyramation@gmail.com>",
+  "homepage": "https://github.com/pyramation/git-count#readme",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pyramation/git-count"
+  },
+  "bugs": {
+    "url": "https://github.com/pyramation/git-count/issues"
+  },
+  "scripts": {
+    "copy": "copyfiles -f LICENSE README.md package.json dist",
+    "clean": "rimraf dist/**",
+    "prepare": "npm run build",
+    "dev": "ts-node src/index",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "jest": "^29.6.2",
+    "prettier": "^3.0.2",
+    "rimraf": "4.4.1",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.1.6"
+  },
+  "keywords": [],
+  "dependencies": {
+    "shelljs": "^0.8.5"
+  }
+}
