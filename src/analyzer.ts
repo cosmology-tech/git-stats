@@ -16,7 +16,12 @@ export class RepositoryAnalyzer {
   private repoName: string;
   private startTime: number = 0;
 
-  constructor(private repoUrl: string, private tempDir: string = 'temp') {
+  constructor(
+    private repoUrl: string, 
+    private tempDir: string = 'temp',
+    private options: { cleanup?: boolean } = {}
+  ) {
+    
     // Parse username and repo name from URL
     const urlParts = this.parseGitUrl(repoUrl);
     this.username = urlParts.username;
@@ -108,6 +113,11 @@ export class RepositoryAnalyzer {
         `   Latest commit: ${chalk.gray(commits[0]?.date || 'N/A')}`
       );
 
+      if (this.options.cleanup) {
+        this.log(`${this.repoIdentifier}: Cleaning up repository...`);
+        this.cleanup();
+        this.success(`${this.repoIdentifier}: Cleanup complete`);
+      }
 
       return {
         summary,
@@ -205,7 +215,7 @@ export class RepositoryAnalyzer {
       await this.performFreshClone();
     }
   }
-  
+
   private async performFreshClone(): Promise<void> {
     this.log(`${this.repoIdentifier}: Cloning repository...`);
     const cloneStart = Date.now();

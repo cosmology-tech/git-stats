@@ -6,8 +6,12 @@ import { AnalysisResult } from './types';
 export class MultiRepoAnalyzer {
     private analyzers: RepositoryAnalyzer[];
     
-    constructor(repoUrls: string[], tempDir: string = 'temp') {
-      this.analyzers = repoUrls.map(url => new RepositoryAnalyzer(url, tempDir));
+    constructor(
+        repoUrls: string[],
+        tempDir: string = 'temp',
+        options: { cleanup?: boolean } = {}
+    ) {
+      this.analyzers = repoUrls.map(url => new RepositoryAnalyzer(url, tempDir, options));
     }
   
     async analyzeAll(): Promise<AnalysisResult[]> {
